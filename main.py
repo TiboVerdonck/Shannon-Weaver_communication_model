@@ -44,21 +44,21 @@ t = Time()
 t.tic()
 # TODO Determine the number of occurrences of the source or use a fixed huffman_freq
 pixels = img.get_pixel_seq()
-# huffman_freq = Counter(pixels).items()
-# huffman_tree = huffman.Tree(huffman_freq)
-# print(F"Generating the Huffman Tree took {t.toc_str()}")
-#
-# t.tic()
-# # TODO print-out the codebook and validate the codebook (include your findings in the report)
-# print(huffman_tree.codebook)
-# encoded_message = huffman.encode(huffman_tree.codebook, img.get_pixel_seq())
-# print(len(encoded_message))
-# print("Enc huffman: {}".format(t.toc()))
-#
-# t.tic()
-# decoded_message = huffman.decode(huffman_tree, encoded_message)
-#
-# print("Dec huffman: {}".format(t.toc()))
+huffman_freq = Counter(pixels).items()
+huffman_tree = huffman.Tree(huffman_freq)
+print(F"Generating the Huffman Tree took {t.toc_str()}")
+
+t.tic()
+# TODO print-out the codebook and validate the codebook (include your findings in the report)
+print(huffman_tree.codebook)
+encoded_message = huffman.encode(huffman_tree.codebook, img.get_pixel_seq())
+print(len(encoded_message))
+print("Enc huffman: {}".format(t.toc()))
+
+t.tic()
+decoded_message = huffman.decode(huffman_tree, encoded_message)
+
+print("Dec huffman: {}".format(t.toc()))
 
 input_lzw = img.get_pixel_seq().copy()
 
@@ -100,8 +100,6 @@ rs_encoded_message = StringIO()
 t.tic()
 for message in messages:
     code = coder.encode_fast(message, return_string=True)
-    print("length message", len(message))
-    print("length code", len(code))
     rs_encoded_message.write(code)
 
 # TODO What is the RSCoder outputting? Convert to a uint8 (byte) stream before putting it over the channel
